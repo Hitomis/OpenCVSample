@@ -1,6 +1,5 @@
 #include <jni.h>
 #include <string>
-#include "common.h"
 #include "utils.h"
 #include <opencv2/opencv.hpp>
 #define DEFAULT_CARD_WIDTH 640

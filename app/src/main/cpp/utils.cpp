@@ -73,13 +73,15 @@ void mat2Bitmap(JNIEnv *env, Mat mat, jobject bitmap, bool needPremultiplyAlpha)
     }
     AndroidBitmap_unlockPixels(env, bitmap);
 }
-jobject createBitmap(JNIEnv *env,Mat srcData,jobject config){
-    jclass java_bitmap_class = (jclass)env->FindClass("android/graphics/Bitmap");
+
+jobject createBitmap(JNIEnv *env, Mat srcData, jobject config) {
+    jclass java_bitmap_class = (jclass) env->FindClass("android/graphics/Bitmap");
     jmethodID mid = env->GetStaticMethodID(java_bitmap_class,
                                            "createBitmap",
                                            "(IILandroid/graphics/Bitmap$Config;)Landroid/graphics/Bitmap;");
-    jobject bitmap = env->CallStaticObjectMethod(java_bitmap_class,mid, srcData.cols, srcData.rows, config);
-    mat2Bitmap(env,srcData,bitmap,0);
+    jobject bitmap = env->CallStaticObjectMethod(java_bitmap_class, mid, srcData.cols, srcData.rows,
+                                                 config);
+    mat2Bitmap(env, srcData, bitmap, 0);
     return bitmap;
 }
 

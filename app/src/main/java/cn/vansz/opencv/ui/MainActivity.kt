@@ -10,12 +10,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
-            outlineImage -> {
-                startActivity(Intent(this, OutlineActivity::class.java))
-            }
-            idDetector -> {
-                startActivity(Intent(this, DetectorActivity::class.java))
-            }
+            outlineImage -> startActivity(Intent(this, OutlineActivity::class.java))
+            idDetector -> startActivity(Intent(this, DetectorActivity::class.java))
+            gifImage -> startActivity(Intent(this, GifActivity::class.java))
         }
     }
 
@@ -24,6 +21,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         outlineImage.setOnClickListener(this)
         idDetector.setOnClickListener(this)
+        gifImage.setOnClickListener(this)
     }
 
 }
