@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.CvSimpleActivity">
+
+    <ImageView
+        android:id="@+id/ivGray"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@android:color/black"
+        android:src="@drawable/lyf" />
+
+    <Button
+        android:id="@+id/btnGray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="图像灰度化" />
+
+    <Button
+        android:id="@+id/btnSqrt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="图像底片化" />
+
+    <Button
+        android:id="@+id/btnAveraging"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="图像Averaging" />
+
+</LinearLayout>

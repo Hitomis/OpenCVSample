@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             outlineImage -> startActivity(Intent(this, OutlineActivity::class.java))
             idDetector -> startActivity(Intent(this, DetectorActivity::class.java))
             gifImage -> startActivity(Intent(this, GifActivity::class.java))
+            opencvSimple -> startActivity(Intent(this, CvSimpleActivity::class.java))
         }
     }
 
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         outlineImage.setOnClickListener(this)
         idDetector.setOnClickListener(this)
         gifImage.setOnClickListener(this)
+        opencvSimple.setOnClickListener(this)
     }
 
 }
