@@ -7,7 +7,7 @@
     tools:context=".ui.CvSimpleActivity">
 
     <ImageView
-        android:id="@+id/ivGray"
+        android:id="@+id/ivSimple"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@android:color/black"
@@ -26,9 +26,15 @@
         android:text="图像底片化" />
 
     <Button
-        android:id="@+id/btnAveraging"
+        android:id="@+id/btnArithmetic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="图像Averaging" />
+
+    <Button
+        android:id="@+id/btnStdDev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="图像stddev" />
 
 </LinearLayout>

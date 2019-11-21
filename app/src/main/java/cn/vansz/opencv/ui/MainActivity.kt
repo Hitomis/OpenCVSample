@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             idDetector -> startActivity(Intent(this, DetectorActivity::class.java))
             gifImage -> startActivity(Intent(this, GifActivity::class.java))
             opencvSimple -> startActivity(Intent(this, CvSimpleActivity::class.java))
+            imageAdjustment -> startActivity(Intent(this, ImageAdjustmentActivity::class.java))
         }
     }
 
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         idDetector.setOnClickListener(this)
         gifImage.setOnClickListener(this)
         opencvSimple.setOnClickListener(this)
+        imageAdjustment.setOnClickListener(this)
     }
 
 }
