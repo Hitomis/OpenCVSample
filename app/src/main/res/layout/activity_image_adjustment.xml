@@ -14,55 +14,175 @@
         android:background="@android:color/black"
         android:src="@drawable/lyf" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="right"
-            android:text="亮度调节" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <SeekBar
-            android:id="@+id/brightnessSeek"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="8"
-            android:max="255"
-            android:min="0" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="亮度调节" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="right"
-            android:text="对比度调节" />
+                <SeekBar
+                    android:id="@+id/brightnessSeek"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="8"
+                    android:max="255"
+                    android:min="0" />
 
-        <SeekBar
-            android:id="@+id/contrastSeek"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="8"
-            android:max="300"
-            android:min="0" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="对比度调节" />
+
+                <SeekBar
+                    android:id="@+id/contrastSeek"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="8"
+                    android:max="300"
+                    android:min="0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="组合亮度" />
+
+                <SeekBar
+                    android:id="@+id/combineBrightnessSeek"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="8"
+                    android:max="200"
+                    android:min="0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="组合对比度" />
+
+                <SeekBar
+                    android:id="@+id/combineContrastSeek"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="8"
+                    android:max="200"
+                    android:min="0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="均值模糊" />
+
+                <SeekBar
+                    android:id="@+id/averageSeek"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="8"
+                    android:max="100"
+                    android:min="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="高斯模糊" />
+
+                <SeekBar
+                    android:id="@+id/gaussianSeek"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="8"
+                    android:max="50"
+                    android:min="0" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

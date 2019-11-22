@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ImageAdjustmentActivity"></activity>
+        <activity android:name=".ui.ImageBlurActivity"></activity>
+        <activity android:name=".ui.ImageAdjustmentActivity" />
         <activity android:name=".ui.CvSimpleActivity" />
         <activity android:name=".ui.GifActivity" />
         <activity android:name=".ui.MainActivity">
