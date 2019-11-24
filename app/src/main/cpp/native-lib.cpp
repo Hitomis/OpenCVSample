@@ -34,7 +34,7 @@ Java_cn_vansz_opencv_JniHelper_findIdNumber(JNIEnv *env, jobject instance,
     cvtColor(src_img,dst,COLOR_RGB2GRAY);
     //5 二值化
     threshold(dst,dst,100,255,THRESH_BINARY);
-    //6 膨胀
+    //6 腐蚀
     Mat erodeElement = getStructuringElement(MORPH_RECT,Size(20,10));
     erode(dst,dst,erodeElement);
     //7 轮廓检测

@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.SeekBar
 import cn.vansz.opencv.R
-import kotlinx.android.synthetic.main.activity_image_adjustment.*
 import kotlinx.android.synthetic.main.activity_image_blur.*
 import kotlinx.android.synthetic.main.activity_image_blur.ivSimple
 import org.opencv.android.Utils
@@ -15,7 +14,8 @@ import org.opencv.core.Point
 import org.opencv.core.Size
 import org.opencv.imgproc.Imgproc
 
-class ImageBlurActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
+class ImageBlurActivity : BaseActivity(), View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+
     private lateinit var originBitmap: Bitmap
     override fun layoutResID(): Int = R.layout.activity_image_blur
 
@@ -24,16 +24,21 @@ class ImageBlurActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
 
         averageSeek.setOnSeekBarChangeListener(this)
         gaussianSeek.setOnSeekBarChangeListener(this)
+        medianSeek.setOnSeekBarChangeListener(this)
+        dilateSeek.setOnSeekBarChangeListener(this)
+        erodeSeek.setOnSeekBarChangeListener(this)
+    }
+
+    override fun onClick(v: View?) {
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         when (seekBar) {
-            averageSeek -> {
-                averageBlur(progress * 1.0)
-            }
-            gaussianSeek -> {
-                gaussian(progress * 2.0 + 1)
-            }
+            averageSeek -> averageBlur(progress * 1.0)
+            gaussianSeek -> gaussianBlur(progress * 2.0 + 1)
+            medianSeek -> medianBlur(progress * 2 + 1)
+            dilateSeek -> dilateBlur(progress * 1.0)
+            erodeSeek -> erodeBlur(progress * 1.0)
         }
     }
 
@@ -43,6 +48,61 @@ class ImageBlurActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
     override fun onStopTrackingTouch(seekBar: SeekBar?) {
     }
 
+    /**
+     * 腐蚀有效抑制图像中特定类型的噪声
+     */
+    private fun erodeBlur(level: Double) {
+        val src = Mat()
+        val dst = Mat()
+
+        // 获取卷积核
+        val kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, Size(level, level))
+        Utils.bitmapToMat(originBitmap, src)
+        Imgproc.erode(src, dst, kernel)
+        Utils.matToBitmap(dst, bitmap)
+
+        ivSimple.setImageBitmap(bitmap)
+
+        dst.release()
+        src.release()
+    }
+
+    /**
+     * 膨胀有效抑制图像中特定类型的噪声
+     */
+    private fun dilateBlur(level: Double) {
+        val src = Mat()
+        val dst = Mat()
+
+        // 获取卷积核
+        val kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, Size(level, level))
+        Utils.bitmapToMat(originBitmap, src)
+        Imgproc.dilate(src, dst, kernel)
+        Utils.matToBitmap(dst, bitmap)
+
+        ivSimple.setImageBitmap(bitmap)
+
+        dst.release()
+        src.release()
+    }
+
+
+    /**
+     * 有效抑制椒盐噪声
+     */
+    private fun medianBlur(level: Int) {
+        val src = Mat()
+        val dst = Mat()
+
+        Utils.bitmapToMat(originBitmap, src)
+        Imgproc.medianBlur(src, dst, level)
+        Utils.matToBitmap(dst, bitmap)
+
+        ivSimple.setImageBitmap(bitmap)
+
+        dst.release()
+        src.release()
+    }
 
     private fun averageBlur(level: Double) {
         val src = Mat()
@@ -57,7 +117,7 @@ class ImageBlurActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
         src.release()
     }
 
-    private fun gaussian(level: Double) {
+    private fun gaussianBlur(level: Double) {
         val src = Mat()
         val dst = Mat()
 
