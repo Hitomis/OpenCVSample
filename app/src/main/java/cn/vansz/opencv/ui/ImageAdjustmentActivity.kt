@@ -25,10 +25,6 @@ class ImageAdjustmentActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener 
         combineBrightnessSeek.setOnSeekBarChangeListener(this)
         combineContrastSeek.setOnSeekBarChangeListener(this)
         combineContrastSeek.progress = 100 // 1 以下，降低对比度，反之提升
-
-        averageSeek.setOnSeekBarChangeListener(this)
-        gaussianSeek.setOnSeekBarChangeListener(this)
-
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -44,12 +40,6 @@ class ImageAdjustmentActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener 
             }
             combineContrastSeek -> {
                 combineSeek(1.5, progress / 100.0)
-            }
-            averageSeek -> {
-                averageBlur(progress * 1.0)
-            }
-            gaussianSeek -> {
-                gaussian(progress * 2.0 + 1)
             }
         }
     }
@@ -107,33 +97,4 @@ class ImageAdjustmentActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener 
         dst.release()
         src.release()
     }
-
-    private fun averageBlur(level: Double) {
-        val src = Mat()
-        val dst = Mat()
-
-        Utils.bitmapToMat(originBitmap, src)
-        Imgproc.blur(src, dst, Size(level, level), Point(-1.0, -1.0), Core.BORDER_DEFAULT)
-        Utils.matToBitmap(dst, bitmap)
-        ivSimple.setImageBitmap(bitmap)
-
-        dst.release()
-        src.release()
-    }
-
-    private fun gaussian(level: Double) {
-        val src = Mat()
-        val dst = Mat()
-
-        Utils.bitmapToMat(originBitmap, src)
-//        Imgproc.GaussianBlur(src, dst, Size(0.0, 0.0), level, level, Core.BORDER_DEFAULT)
-        // level > 0 && level % 2 == 1
-        Imgproc.GaussianBlur(src, dst, Size(level, level), 0.0)
-        Utils.matToBitmap(dst, bitmap)
-        ivSimple.setImageBitmap(bitmap)
-
-        dst.release()
-        src.release()
-    }
-
 }
