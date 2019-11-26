@@ -89,7 +89,7 @@ class ImageAdjustmentActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener 
         val bm = Bitmap.createBitmap(src.cols(), src.rows(), Bitmap.Config.ARGB_8888)
         val result = Mat()
 
-        Imgproc.cvtColor(dst, result, Imgproc.COLOR_BGR2RGBA);
+        Imgproc.cvtColor(dst, result, Imgproc.COLOR_BGR2RGBA)
         Utils.matToBitmap(result, bm)
         ivSimple.setImageBitmap(bm)
 

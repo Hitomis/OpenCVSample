@@ -6,12 +6,8 @@ import android.view.View
 import android.widget.SeekBar
 import cn.vansz.opencv.R
 import kotlinx.android.synthetic.main.activity_image_blur.*
-import kotlinx.android.synthetic.main.activity_image_blur.ivSimple
 import org.opencv.android.Utils
-import org.opencv.core.Core
-import org.opencv.core.Mat
-import org.opencv.core.Point
-import org.opencv.core.Size
+import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
 
 class ImageBlurActivity : BaseActivity(), View.OnClickListener, SeekBar.OnSeekBarChangeListener {
@@ -27,6 +23,8 @@ class ImageBlurActivity : BaseActivity(), View.OnClickListener, SeekBar.OnSeekBa
         medianSeek.setOnSeekBarChangeListener(this)
         dilateSeek.setOnSeekBarChangeListener(this)
         erodeSeek.setOnSeekBarChangeListener(this)
+        bilateralSeek.setOnSeekBarChangeListener(this)
+        pyrMeanShiftSeek.setOnSeekBarChangeListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -39,6 +37,8 @@ class ImageBlurActivity : BaseActivity(), View.OnClickListener, SeekBar.OnSeekBa
             medianSeek -> medianBlur(progress * 2 + 1)
             dilateSeek -> dilateBlur(progress * 1.0)
             erodeSeek -> erodeBlur(progress * 1.0)
+            bilateralSeek -> bilateralBlur(progress * 1.0)
+            pyrMeanShiftSeek -> pyrMeanShiftBlur(progress * 1.0)
         }
     }
 
@@ -46,6 +46,46 @@ class ImageBlurActivity : BaseActivity(), View.OnClickListener, SeekBar.OnSeekBa
     }
 
     override fun onStopTrackingTouch(seekBar: SeekBar?) {
+    }
+
+    /**
+     * 用于人像美容 error
+     */
+    private fun pyrMeanShiftBlur(level: Double) {
+        val src = Mat()
+        val dst = Mat()
+
+        Utils.bitmapToMat(originBitmap, src)
+        originBitmap = Bitmap.createBitmap(src.width(), src.height(), Bitmap.Config.RGB_565)
+        val src2 = Mat()
+        Imgproc.cvtColor(src, src2, Imgproc.COLOR_BGR2RGBA)
+        // Only 8-bit, 3-channel images are supported in function 'pyrMeanShiftFiltering'
+        Imgproc.pyrMeanShiftFiltering(src2, dst, 10.0, 50.0)
+        Utils.matToBitmap(dst, bitmap)
+        ivSimple.setImageBitmap(bitmap)
+
+        dst.release()
+        src.release()
+    }
+
+    /**
+     * 用于人像美容 error
+     */
+    private fun bilateralBlur(level: Double) {
+        val src = Mat()
+        val src2 = Mat()
+        val dst = Mat()
+
+        Utils.bitmapToMat(originBitmap, src)
+
+        // (src.type() == CV_8UC1 || src.type() == CV_8UC3)
+        src.convertTo(src2, CvType.CV_8UC1)
+        Imgproc.bilateralFilter(src2, dst, 0, 100.0, 15.0)
+        Utils.matToBitmap(dst, bitmap)
+        ivSimple.setImageBitmap(bitmap)
+
+        dst.release()
+        src.release()
     }
 
     /**
