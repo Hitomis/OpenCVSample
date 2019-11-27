@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@android:color/black"
+        android:scaleType="centerCrop"
         android:src="@drawable/lyf" />
 
     <ScrollView
@@ -22,6 +23,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <Button
+                android:id="@+id/imagePickBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="图片选择" />
+
+
+            <Button
+                android:id="@+id/bilateralBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:text="高斯双边模糊" />
+
+
+            <Button
+                android:id="@+id/pyrMeanShiftBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="均值迁移模糊" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -147,55 +169,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="right"
-                    android:text="高斯双边" />
-
-                <SeekBar
-                    android:id="@+id/bilateralSeek"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="8"
-                    android:max="150"
-                    android:min="100" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="right"
-                    android:text="均值迁移" />
-
-                <SeekBar
-                    android:id="@+id/pyrMeanShiftSeek"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="8"
-                    android:max="100"
-                    android:min="1" />
-
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

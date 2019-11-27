@@ -7,7 +7,11 @@ import android.widget.SeekBar
 import cn.vansz.opencv.R
 import kotlinx.android.synthetic.main.activity_image_blur.*
 import org.opencv.android.Utils
-import org.opencv.core.*
+import org.opencv.core.Core
+import org.opencv.core.Mat
+import org.opencv.core.Point
+import org.opencv.core.Size
+import org.opencv.imgcodecs.Imgcodecs
 import org.opencv.imgproc.Imgproc
 
 class ImageBlurActivity : BaseActivity(), View.OnClickListener, SeekBar.OnSeekBarChangeListener {
@@ -17,17 +21,23 @@ class ImageBlurActivity : BaseActivity(), View.OnClickListener, SeekBar.OnSeekBa
 
     override fun init() {
         originBitmap = BitmapFactory.decodeResource(resources, R.drawable.lyf)
+        imagePickBtn.setOnClickListener(this)
+        bilateralBtn.setOnClickListener(this)
+        pyrMeanShiftBtn.setOnClickListener(this)
 
         averageSeek.setOnSeekBarChangeListener(this)
         gaussianSeek.setOnSeekBarChangeListener(this)
         medianSeek.setOnSeekBarChangeListener(this)
         dilateSeek.setOnSeekBarChangeListener(this)
         erodeSeek.setOnSeekBarChangeListener(this)
-        bilateralSeek.setOnSeekBarChangeListener(this)
-        pyrMeanShiftSeek.setOnSeekBarChangeListener(this)
     }
 
     override fun onClick(v: View?) {
+        when (v) {
+            imagePickBtn -> pickImage()
+            bilateralBtn -> bilateralBlur()
+            pyrMeanShiftBtn -> pyrMeanShiftBlur()
+        }
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -35,10 +45,6 @@ class ImageBlurActivity : BaseActivity(), View.OnClickListener, SeekBar.OnSeekBa
             averageSeek -> averageBlur(progress * 1.0)
             gaussianSeek -> gaussianBlur(progress * 2.0 + 1)
             medianSeek -> medianBlur(progress * 2 + 1)
-            dilateSeek -> dilateBlur(progress * 1.0)
-            erodeSeek -> erodeBlur(progress * 1.0)
-            bilateralSeek -> bilateralBlur(progress * 1.0)
-            pyrMeanShiftSeek -> pyrMeanShiftBlur(progress * 1.0)
         }
     }
 
@@ -49,40 +55,40 @@ class ImageBlurActivity : BaseActivity(), View.OnClickListener, SeekBar.OnSeekBa
     }
 
     /**
-     * 用于人像美容 error
+     * 均值迁移 用于人像美容 error
      */
-    private fun pyrMeanShiftBlur(level: Double) {
-        val src = Mat()
+    private fun pyrMeanShiftBlur() {
+        // read image
+        val src = Imgcodecs.imread(imageUri?.path)
+        if (src.empty()) return
         val dst = Mat()
+        Imgproc.pyrMeanShiftFiltering(src, dst, 10.0, 50.0)
 
-        Utils.bitmapToMat(originBitmap, src)
-        originBitmap = Bitmap.createBitmap(src.width(), src.height(), Bitmap.Config.RGB_565)
-        val src2 = Mat()
-        Imgproc.cvtColor(src, src2, Imgproc.COLOR_BGR2RGBA)
-        // Only 8-bit, 3-channel images are supported in function 'pyrMeanShiftFiltering'
-        Imgproc.pyrMeanShiftFiltering(src2, dst, 10.0, 50.0)
-        Utils.matToBitmap(dst, bitmap)
-        ivSimple.setImageBitmap(bitmap)
+        val newBitmap = Bitmap.createBitmap(src.width(), src.height(), Bitmap.Config.ARGB_8888)
+        val result = Mat()
+        Imgproc.cvtColor(dst, result, Imgproc.COLOR_BGR2GRAY)
+        Utils.matToBitmap(result, newBitmap)
+        ivSimple.setImageBitmap(newBitmap)
 
         dst.release()
         src.release()
     }
 
     /**
-     * 用于人像美容 error
+     * 高斯双边 用于人像美容 error
      */
-    private fun bilateralBlur(level: Double) {
-        val src = Mat()
-        val src2 = Mat()
+    private fun bilateralBlur() {
+        // read image
+        val src = Imgcodecs.imread(imageUri?.path)
+        if (src.empty()) return
         val dst = Mat()
+        Imgproc.bilateralFilter(src, dst, 0, 10.0, 50.0)
 
-        Utils.bitmapToMat(originBitmap, src)
-
-        // (src.type() == CV_8UC1 || src.type() == CV_8UC3)
-        src.convertTo(src2, CvType.CV_8UC1)
-        Imgproc.bilateralFilter(src2, dst, 0, 100.0, 15.0)
-        Utils.matToBitmap(dst, bitmap)
-        ivSimple.setImageBitmap(bitmap)
+        val newBitmap = Bitmap.createBitmap(src.width(), src.height(), Bitmap.Config.ARGB_8888)
+        val result = Mat()
+        Imgproc.cvtColor(dst, result, Imgproc.COLOR_BGR2GRAY)
+        Utils.matToBitmap(result, newBitmap)
+        ivSimple.setImageBitmap(newBitmap)
 
         dst.release()
         src.release()
