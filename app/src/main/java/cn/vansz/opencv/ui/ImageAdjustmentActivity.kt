@@ -3,6 +3,8 @@ package cn.vansz.opencv.ui
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.widget.SeekBar
+import cn.vansz.opencv.JniHelper
+import cn.vansz.opencv.OpenCVHelper
 import cn.vansz.opencv.R
 import kotlinx.android.synthetic.main.activity_image_adjustment.*
 import kotlinx.android.synthetic.main.activity_image_adjustment.ivSimple
@@ -13,6 +15,7 @@ import org.opencv.imgproc.Imgproc
 
 class ImageAdjustmentActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener {
     private lateinit var originBitmap: Bitmap
+    private val opencvHelper = OpenCVHelper.getInstance();
 
     override fun layoutResID(): Int = R.layout.activity_image_adjustment
 
@@ -30,13 +33,17 @@ class ImageAdjustmentActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         when (seekBar) {
             brightnessSeek -> {
-                brightness(progress * 1.0)
+//                brightness(progress * 1.0)
+                val dstBitmap = opencvHelper.adjustBrightness(bitmap, progress * 1.0, Bitmap.Config.RGB_565)
+                ivSimple.setImageBitmap(dstBitmap);
             }
             contrastSeek -> {
                 contrast(progress / 100.0)
             }
             combineBrightnessSeek -> {
                 combineSeek(progress * 1.0, 1.0)
+//                val dstBitmap = opencvHelper.adjustCombine(bitmap, progress * 1.0, 1.0, Bitmap.Config.RGB_565)
+//                ivSimple.setImageBitmap(dstBitmap)
             }
             combineContrastSeek -> {
                 combineSeek(1.5, progress / 100.0)
