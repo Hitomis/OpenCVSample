@@ -27,5 +27,4 @@ public class JniHelper {
 
     public native Bitmap findIdNumber(Bitmap bitmap, Bitmap.Config argb8888);
 
-    public native String stringFromJNI();
 }

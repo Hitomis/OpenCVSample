@@ -10,14 +10,6 @@
 using namespace std;
 using namespace cv;
 
-extern "C" JNIEXPORT jstring JNICALL
-Java_cn_vansz_opencv_JniHelper_stringFromJNI(
-        JNIEnv *env,
-        jobject /* this */) {
-    string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
-}
-
 extern "C" JNIEXPORT jobject JNICALL
 Java_cn_vansz_opencv_JniHelper_findIdNumber(JNIEnv *env, jobject instance,
                                             jobject bitmap, jobject argb8888) {

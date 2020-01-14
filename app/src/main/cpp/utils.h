@@ -6,6 +6,7 @@
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
+using namespace std;
 
 
 extern "C" {
@@ -15,5 +16,7 @@ void bitmap2Mat(JNIEnv *env, jobject bitmap, Mat* mat, bool needPremultiplyAlpha
 void mat2Bitmap(JNIEnv *env, Mat mat, jobject bitmap, bool needPremultiplyAlpha = 0);
 
 jobject createBitmap(JNIEnv *env,Mat srcData,jobject config);
+
+string jstring2str(JNIEnv* env, jstring jstr);
 }
 #endif //NETEASEOCRNATIVE_UTILS_H

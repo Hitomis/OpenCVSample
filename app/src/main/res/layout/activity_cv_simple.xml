@@ -11,30 +11,60 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@android:color/black"
+        android:scaleType="centerCrop"
         android:src="@drawable/lyf" />
 
-    <Button
-        android:id="@+id/btnGray"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="图像灰度化" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnSqrt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="图像底片化" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnArithmetic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="图像Averaging" />
+            <Button
+                android:id="@+id/btnPickImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="图像选择" />
 
-    <Button
-        android:id="@+id/btnStdDev"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="图像stddev" />
+            <Button
+                android:id="@+id/btnGray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="图像灰度化" />
 
+            <Button
+                android:id="@+id/btnSqrt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="图像底片化" />
+
+            <Button
+                android:id="@+id/btnArithmetic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="图像Averaging" />
+
+            <Button
+                android:id="@+id/btnStdDev"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="图像stddev" />
+
+            <Button
+                android:id="@+id/btnKmeans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="图像内聚化" />
+
+            <Button
+                android:id="@+id/btnBound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="测量轮廓" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

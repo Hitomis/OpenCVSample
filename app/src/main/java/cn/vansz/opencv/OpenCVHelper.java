@@ -14,7 +14,6 @@ public class OpenCVHelper {
     }
 
     private static class SingletonHolder {
-
         private final static OpenCVHelper instance = new OpenCVHelper();
     }
 
@@ -26,4 +25,8 @@ public class OpenCVHelper {
     public native Bitmap adjustBrightness(Object bitmap, double level, Bitmap.Config config);
 
     public native Bitmap adjustCombine(Object bitmap, double brightness, double contrast, Bitmap.Config config);
+
+    public native Bitmap imageKmans(String path, Bitmap.Config config);
+
+    public native Bitmap grabCut(String path, Bitmap.Config config);
 }
